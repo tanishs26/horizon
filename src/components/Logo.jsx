@@ -5,7 +5,7 @@ const shimmer = {
     animate: {
         backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
         transition: {
-            duration: 4,
+            duration: 1,
             repeat: Infinity,
             ease: 'linear',
         },
@@ -22,9 +22,9 @@ const Logo = () => {
             <motion.h1
                 variants={shimmer}
                 animate="animate"
-                className=" sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-wider italic bg-gradient-to-r from-cyan-300 to-cyan-300 bg-[length:200%_200%] text-transparent bg-clip-text drop-shadow-[0_0_20px_rgba(0,255,255,0.25)] transition-all duration-500"
+                className=" sm:text-3xl md:text-5xl lg:text-7xl  font-extrabold tracking-wider italic bg-gradient-to-r from-cyan-300 to-cyan-300 bg-[length:200%_200%] text-transparent bg-clip-text drop-shadow-[0_0_20px_rgba(0,255,255,0.25)] transition-all duration-500"
             >
-                Ho<span className="text-white animate-pulse">r</span>izon
+                Ho<span className="text-white animate-pulse ">r</span>izon
             </motion.h1>
             <p className="text-sm mt-1 text-center text-gray-300">Reach beyond limits.</p>
         </motion.div>

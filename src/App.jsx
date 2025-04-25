@@ -7,8 +7,9 @@ import Header from "./components/Header"
 import Footer from "./components/Footer"
 import { useDispatch } from "react-redux"
 import { signIn, signOut } from "./store/authReducer"
-import { BeatLoader, BounceLoader } from "react-spinners"
-
+import { BeatLoader } from "react-spinners"
+import { Input, Container, Login } from "./components/import.js"
+import Signup from "./components/Signup.jsx"
 function App() {
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
@@ -17,7 +18,6 @@ function App() {
       if (data) {
         dispatch(signIn(data))
         console.log(data);
-
       } else {
         dispatch(signOut())
       }
@@ -26,9 +26,18 @@ function App() {
 
   }, [])
   return (
-    < div className="min-h-screen flex flex-col justify-between">
+    < div className="min-h-screen flex flex-col justify-between items-center w-full">
       <Header />
-      {loading ? (<h1 className="text-2xl mx-auto text-center">Please wait<BeatLoader color="white"/></h1>) : (<h1>Welcome</h1>)
+      {loading ? (<h1 className="text-2xl mx-auto text-center">Please wait<BeatLoader color="white" /></h1>) :
+        (
+
+          <main>
+            <Container>
+              {/* <Login/> */}
+              <Signup/>
+            </Container>
+          </main>
+        )
       }
       <Footer />
     </div>

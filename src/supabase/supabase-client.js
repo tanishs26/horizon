@@ -8,7 +8,7 @@ export class Supabase {
       import.meta.env.VITE_SUPABASE_KEY
     );
   }
-  async signUp(email, password, name) {
+  async signUp({email, password, name}) {
     try {
       const { data, error } = await this.supabaseClient.auth.signUp({
         email,
@@ -19,21 +19,21 @@ export class Supabase {
           },
         },
       });
-      if (error) throw error;
-      return data;
+      return {data,error};
     } catch (error) {
       console.log("Error in Sign Up : ", error.message);
     }
   }
 
-  async signIn(email, password) {
+  async signIn({ email, password }) {
     try {
       const { data, error } = await this.supabaseClient.auth.signInWithPassword(
-        email,
-        password
+        {
+          email,
+          password,
+        }
       );
-      if (error) throw error;
-      return data;
+      return { data, error };
     } catch (error) {
       console.log("Error in Sign In : ", error.message);
     }
@@ -46,6 +46,18 @@ export class Supabase {
       return data.session;
     } catch (error) {
       console.error("Error with get session", error.message);
+    }
+  }
+  async getCurrentUser() {
+    try {
+      const {
+        data: { user },
+        error,
+      } = await this.supabaseClient.auth.getUser();
+      return user;
+    } catch (error) {
+      console.log("Get current user error:", error);
+      throw error;
     }
   }
 
