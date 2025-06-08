@@ -9,6 +9,9 @@ import { Logout, Logo } from "./import.js"
 
 const Header = () => {
     const authStatus = useSelector((state) => state.auth.userStatus)
+    const states=useSelector((state) => state.auth.userData)
+    console.log(states);
+    
     const navigate = useNavigate();
     const navItems = [
         {
@@ -39,8 +42,6 @@ const Header = () => {
 
     ]
     return (
-
-
             <div className='overflow-x-hidden p-2 bg-white/1 backdrop-blur-[8px]  flex items-center justify-between sticky top-0 w-full z-10 '>
                 <div><Logo /></div>
                 <ul className='flex items-center '>

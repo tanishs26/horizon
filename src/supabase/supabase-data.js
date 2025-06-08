@@ -68,8 +68,8 @@ export class SupabaseStorage {
     }
   }
 
-  async uploadFile(file) {
-    const filePath = `${file.name}-${Date.now()}`;
+  async uploadImageFile(file) {
+    const filePath = `${file.name}`;
     try {
       const { error } = await this.supabaseClient.storage
         .from("task-images")
@@ -85,7 +85,7 @@ export class SupabaseStorage {
     }
   }
 
-  async deleteFile(filePath) {
+  async deleteImageFile(filePath) {
     try {
       const { error } = await this.supabaseClient.storage
         .from("task-images")

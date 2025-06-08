@@ -5,9 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import supabase from '../supabase/supabase-client.js';
 import { useDispatch } from 'react-redux';
 import { signIn } from '../store/authReducer.js';
+
 const Signup = () => {
     const { register, handleSubmit } = useForm()
-    const dispatch = useDispatch()
+    const dispatch = useDispatch() 
     const navigate = useNavigate()
     const [error, setError] = useState("")
 
@@ -28,8 +29,8 @@ const Signup = () => {
 
     }
     return (
-        <Container className="flex flex-col ">
-            <div className="w-full max-w-md bg-white/0 backdrop-blur-[20px] shadow-2xl rounded-2xl p-6 sm:p-10 flex flex-col justify-center items-center gap-6">
+        <Container className="flex flex-col w-full items-center">
+            <div className=" max-w-lg w-full bg-white/0 backdrop-blur-[20px] shadow-2xl rounded-2xl p-7 sm:p-10 flex flex-col justify-center items-center gap-6">
                 <div className="text-center">
                     <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">Welcome </h1>
                     <p className="text-m text-gray-300">Please sign up for your account</p>
@@ -44,14 +45,17 @@ const Signup = () => {
                         placeholder="Enter your name"
                         label="Name "
                         type="text"
-                        {...register("name", { required: "Name is required" })}
+                             
+                        required
+                        {...register("name", { required: true })}
                         className="text-base py-[4px] px-[1rem] rounded-md bg-transparent"
                     />
                     <Input
                         placeholder="Enter your email"
                         label="Email"
                         type="email"
-                        {...register("email", { required: "Email is required" })}
+                        required
+                        {...register("email", { required: true })}
                         className="text-base py-[4px] px-[1rem] rounded-md bg-transparent"
                     />
                     {error.email && (
@@ -62,7 +66,8 @@ const Signup = () => {
                         placeholder="Enter your password"
                         label="Password"
                         type="password"
-                        {...register("password", { required: "Password is required" })}
+                        required
+                        {...register("password", { required: true })}
                         className="text-base py-[4px] px-[1rem] rounded-md bg-transparent"
                     />
                     {error.password && (

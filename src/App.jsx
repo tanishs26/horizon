@@ -32,10 +32,8 @@ function App() {
         (
 
           <main>
-            <Container>
               {/* <Login/> */}
               <Signup/>
-            </Container>
           </main>
         )
       }

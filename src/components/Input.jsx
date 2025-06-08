@@ -12,5 +12,5 @@ const Input = forwardRef(({ label, type = "text", placeholder, className, ...pro
         </div>
     );
 }
-)
+)                                                                                                                                                        
 export default Input;

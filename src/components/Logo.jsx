@@ -22,7 +22,7 @@ const Logo = () => {
             <motion.h1
                 variants={shimmer}
                 animate="animate"
-                className=" sm:text-3xl md:text-5xl lg:text-7xl  font-extrabold tracking-wider italic bg-gradient-to-r from-cyan-300 to-cyan-300 bg-[length:200%_200%] text-transparent bg-clip-text drop-shadow-[0_0_20px_rgba(0,255,255,0.25)] transition-all duration-500"
+                className=" sm:text-3xl md:text-5xl lg:text-5xl  font-extrabold tracking-wider italic bg-gradient-to-r from-cyan-300 to-cyan-300 bg-[length:200%_200%] text-transparent bg-clip-text drop-shadow-[0_0_20px_rgba(0,255,255,0.25)] transition-all duration-500"
             >
                 Ho<span className="text-white animate-pulse ">r</span>izon
             </motion.h1>

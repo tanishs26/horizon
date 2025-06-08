@@ -25,7 +25,7 @@ const Login = () => {
                 const user = await supabase.getCurrentUser();
                 if (user) {
                     dispatch(signIn({ userData: user }))
-                    navigate('/all-posts');
+                    navigate('/');
                     console.log(user);
                 }
             }
@@ -37,7 +37,7 @@ const Login = () => {
 
     return (
         <Container className="flex flex-col ">
-            <div className="w-full max-w-md bg-white/0 backdrop-blur-[20px] shadow-2xl rounded-2xl p-6 sm:p-10 flex flex-col justify-center items-center gap-6">
+            <div className="w-full max-w-lg  bg-white/0 backdrop-blur-[20px] shadow-2xl rounded-2xl p-6 sm:p-10 flex flex-col justify-center items-center gap-6">
                 <div className="text-center">
                     <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">Welcome Back</h1>
                     <p className="text-m text-gray-300">Sign in to your account</p>
