@@ -33,7 +33,7 @@ const Signup = () => {
   };
   return (
     <Container className="flex flex-col w-full items-center text-white">
-      <div className=" max-w-lg w-[35rem] bg-gradient-to-r from-slate-600 to-slate-800 backdrop-blur-[20px] shadow-2xl rounded-2xl p-7 sm:p-10 flex flex-col justify-center items-center gap-6">
+      <div className="  max-w-[35rem] bg-gradient-to-r from-slate-600 to-slate-800 backdrop-blur-[20px] shadow-2xl rounded-2xl p-7 sm:p-10 flex flex-col justify-center items-center gap-6">
         <div className="text-center">
           <div className="scale-75 mb-2">
             <Logo />
@@ -50,7 +50,7 @@ const Signup = () => {
           onSubmit={handleSubmit(signUpsubmit)}
           className="flex flex-col gap-4 w-full items-center "
         >
-          <div className="scale-120">
+          <div className="scale-110">
             <Input
               placeholder="Enter your name"
               label="Name "
@@ -60,7 +60,7 @@ const Signup = () => {
               className="text-base py-[4px] px-[1rem] rounded-md bg-transparent"
             />
           </div>
-          <div className="scale-120">
+          <div className="scale-110">
             <Input
               placeholder="Enter your email"
               label="Email"
@@ -74,7 +74,7 @@ const Signup = () => {
             )}
           </div>
 
-          <div className="scale-120">
+          <div className="scale-110">
             <Input
               placeholder="Enter your password"
               label="Password"

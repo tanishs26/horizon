@@ -55,7 +55,7 @@ const Login = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-4 w-full items-center "
         >
-          <div className="scale-120 mb-3">
+          <div className="scale-110 mb-3">
             <Input
               placeholder="Enter your email"
               label="Email"
@@ -68,7 +68,7 @@ const Login = () => {
             )}
           </div>
 
-          <div className="scale-120">
+          <div className="scale-110">
             <Input
               placeholder="Enter your password"
               label="Password"
