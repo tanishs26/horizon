@@ -42,17 +42,17 @@ const Header = () => {
       <div>
         <Logo />
       </div>
-      <ul className="flex items-center ">
+      <ul className="flex items-center text-center justify-center  ">
         {navItems.map((item) => {
           return (
-            <li key={item.name}>
+            <li key={item.name} className="flex items-center">
               {item.active ? (
                 <NavLink
                   to={item.slug}
                   className={({ isActive }) =>
                     isActive
-                      ? "text-cyan-300 m-4  lg:text-[20px] sm:text-[16px] sm:m-w-6  mask-b-from-1.5"
-                      : "text-gray-200 m-4 lg:text-[20px] sm:text-[16px] sm:m-w-6 "
+                      ? "text-cyan-300 m-4  lg:text-[20px] sm:text-[15px] sm:m-w-6  mask-b-from-1.5"
+                      : "text-gray-200 m-4 lg:text-[20px] sm:text-[15px] sm:m-w-6 "
                   }
                 >
                   {item.name}
