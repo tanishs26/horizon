@@ -4,7 +4,7 @@ const Input = forwardRef(({ label, type = "text", placeholder, className, ...pro
     const id = useId();
     return (
         <div>
-            {label && <label htmlFor={id}>{label}</label>}
+            {label && <label className='text-white' htmlFor={id}>{label}</label>}
             <br/>
             <input type={type} id={id} placeholder={placeholder} className={`bg-white/5 outline-none backdrop-blur-3xl
                 max-w-full ${className}`}  {...props} ref={ref} />

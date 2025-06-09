@@ -3,83 +3,94 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import supabaseStorage from "../supabase/supabase-data";
-
 import { RTE } from "../components/import.js";
 
 const PostForm = ({ post }) => {
-  const { register, handleSubmit, setValue, getValues, control, watch,formState: { errors }, } =
-    useForm({
-      defaultValues: {
-        title: post?.title || "",
-        slug: post?.slug || "",
-        content: post?.content || "",
-      },
-    });
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    control,
+    watch,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      title: post?.title || "",
+      slug: post?.slug || "",
+      content: post?.content || "",
+      image: null,
+    },
+  });
 
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
 
   const slugTransform = useCallback((value) => {
-    if (value && typeof value == "string") {
+    if (value && typeof value === "string") {
       return value.trim().toLowerCase().replace(/\s+/g, "-");
     }
     return "";
   }, []);
-  React.useEffect(() => {
+
+  useEffect(() => {
     const subscription = watch((value, { name }) => {
-      if (name == "title") {
+      if (name === "title") {
         setValue("slug", slugTransform(value.title));
       }
     });
-
-    return () => {
-      subscription.unsubscribe();
-    };
+    return () => subscription.unsubscribe();
   }, [watch, slugTransform, setValue]);
 
   const submit = async (data) => {
-
-
     try {
+      console.log("UserData before submission : ", userData);
+      if (!userData?.id && !post) {
+        throw new Error("User not authenticated");
+      }
 
-      const slug = slugTransform(data.title); 
+      const slug = data.slug; // Use form's slug, set by useEffect
+      console.log("Submitting post:", { title: data.title, slug, userData });
+
       if (post) {
-        //Update existing post
+        // Update existing post
         await supabaseStorage.updatePost(post.slug, {
           title: data.title,
-          slug:slug,
+          slug,
           content: data.content,
           featuredImage: post.featuredImage,
         });
-        navigate(`/post/${post.slug}`);
+        navigate(`/post/${slug}`);
       } else {
-        //create new post
+        // Create new post
         let imgUrl = null;
-
-        imgUrl = data.image?.[0]
-          ? await supabaseStorage.uploadImageFile(data.image[0])
-          : null;
+        if (data.image?.[0]) {
+          const file = data.image[0];
+          if (!file.type.startsWith("image/")) {
+            throw new Error("Please upload a valid image file");
+          }
+          imgUrl = await supabaseStorage.uploadImageFile(file);
+        }
         await supabaseStorage.createPost({
-          featuredImage: imgUrl,
-          content: data.content,
           title: data.title,
-          slug: data.slug,
-          userid: userData?.id || "",
+          slug,
+          content: data.content,
+          featuredImage: imgUrl,
+          userid: userData.id,
         });
         navigate("/all-posts");
       }
     } catch (error) {
-      console.error("Post submission error:", error);
-      alert("Failed to save post. Please try again.");
+      console.error("Post submission error:", error.message, error);
+      alert(`Failed to save post: ${error.message}`);
     }
   };
 
   return (
     <form
       onSubmit={handleSubmit(submit)}
-      className="space-y-4 max-w-xl mx-auto"
+      className="  bg-gradient-to-br from-zinc-600 to-neutral-700 rounded-2xl w-full space-y-4 max-w-4xl mx-auto bg-amber-200 px-30 py-10"
     >
-      <div>
+      <div className="w-full">
         <label className="block mb-1 font-semibold text-white">Title</label>
         <input
           type="text"
@@ -93,21 +104,19 @@ const PostForm = ({ post }) => {
         <label className="block mb-1 font-semibold text-white">Slug</label>
         <input
           type="text"
-          placeholder="slug "
           {...register("slug", { required: "Slug is required" })}
-          className="w-full px-4 py-2 rounded bg-gray-800 text-white"
-          onInput={(e) => {
-            setValue("slug", slugTransform(e.currentTarget.value));
-          }}
+          className="w-full px-4 py-2 rounded bg-gray-800 text-white opacity-70"
           readOnly
+          placeholder="Auto-generated from title"
         />
         {errors.slug && <p className="text-red-500">{errors.slug.message}</p>}
       </div>
+
       <RTE
         label="Content"
         name="content"
         control={control}
-        defaultValue={getValues("content")}
+        defaultValue={post?.content || ""}
       />
 
       {!post && (
@@ -117,18 +126,23 @@ const PostForm = ({ post }) => {
           </label>
           <input
             type="file"
+            accept="image/*"
             {...register("image")}
             className="w-full text-white"
           />
+          {errors.image && (
+            <p className="text-red-500">{errors.image.message}</p>
+          )}
         </div>
       )}
-
-      <button
-        type="submit"
-        className="bg-cyan-500 text-white px-6 py-2 rounded hover:bg-cyan-600"
-      >
-        {post ? "Update Post" : "Create Post"}
-      </button>
+      <div className="flex justify-center">
+        <button
+          type="submit"
+          className="bg-gray-600 text-white px-6 py-2 rounded hover:bg-cyan-600 mx-auto"
+        >
+          {post ? "Update Post" : "Create Post"}
+        </button>
+      </div>
     </form>
   );
 };

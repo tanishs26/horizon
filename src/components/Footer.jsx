@@ -9,7 +9,7 @@ const Footer = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}
-      className="mt-20 p-6 bg-black-95 bottom-0 text-gray-300 bg-black w-full "
+      className="mt-20 p-6 w-full  bottom-0 text-gray-300 bg-gray-900 "
     >
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
         <div className="text-center md:text-left">

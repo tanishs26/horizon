@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from '@supabase/supabase-js';
 
 export class SupabaseStorage {
   supabaseClient;
@@ -11,89 +11,116 @@ export class SupabaseStorage {
 
   async createPost({ title, slug, content, featuredImage, userid }) {
     try {
+      const { data: existing } = await this.supabaseClient
+        .from('posts')
+        .select('slug')
+        .eq('slug', slug)
+        .single();
+      if (existing) throw new Error('Slug already exists');
+
       const { error } = await this.supabaseClient
-        .from("posts")
+        .from('posts')
         .insert([{ title, slug, content, featuredImage, userid }]);
       if (error) throw error;
     } catch (error) {
-      console.error("Creating post : ", error.message);
+      console.error('Creating post:', error.message);
+      throw error; // Propagate error to caller
     }
   }
 
-  async updatePost(slug, { title, content, featuredImage }) {
+  async updatePost(oldSlug, { title, slug, content, featuredImage }) {
     try {
+      if (oldSlug !== slug) {
+        const { data: existing } = await this.supabaseClient
+          .from('posts')
+          .select('slug')
+          .eq('slug', slug)
+          .single();
+        if (existing) throw new Error('Slug already exists');
+      }
+
       const { error } = await this.supabaseClient
-        .from("posts")
-        .update({ title, content, featuredImage })
-        .eq("slug", slug);
+        .from('posts')
+        .update({ title, slug, content, featuredImage })
+        .eq('slug', oldSlug);
       if (error) throw error;
     } catch (error) {
-      console.error("Updating post : ", error.message);
+      console.error('Updating post:', error.message);
+      throw error;
     }
   }
+
   async deletePost(slug) {
     try {
       const { error } = await this.supabaseClient
-        .from("posts")
+        .from('posts')
         .delete()
-        .eq("slug", slug);
+        .eq('slug', slug);
       if (error) throw error;
       return true;
     } catch (error) {
-      console.error("Deleting post : ", error.message);
+      console.error('Deleting post:', error.message);
+      throw error;
     }
   }
+
   async getPost(slug) {
     try {
       const { data, error } = await this.supabaseClient
-        .from("posts")
-        .select("*")
-        .eq("slug", slug)
+        .from('posts')
+        .select('*')
+        .eq('slug', slug)
         .single();
       if (error) throw error;
       return data;
     } catch (error) {
-      console.error("Fetching post : ", error.message);
+      console.error('Fetching post:', error.message);
+      throw error;
     }
   }
+
   async getAllPosts() {
     try {
       const { data, error } = await this.supabaseClient
-        .from("posts")
-        .select("*");
+        .from('posts')
+        .select('*');
       if (error) throw error;
       return data;
     } catch (error) {
-      console.error("Fetching all posts : ", error.message);
+      console.error('Fetching all posts:', error.message);
+      return [];
     }
   }
 
   async uploadImageFile(file) {
-    const filePath = `${file.name}`;
+    const uniqueId = Date.now();
+    const filePath = `${uniqueId}_${file.name}`;
     try {
       const { error } = await this.supabaseClient.storage
-        .from("task-images")
+        .from('task-images')
         .upload(filePath, file);
       if (error) throw error;
 
       const { data } = this.supabaseClient.storage
-        .from("task-images")
+        .from('task-images')
         .getPublicUrl(filePath);
       return data.publicUrl;
     } catch (error) {
-      console.error("Upload file error", error.message);
+      console.error('Upload file error:', error.message);
+      throw error;
     }
   }
 
   async deleteImageFile(filePath) {
     try {
       const { error } = await this.supabaseClient.storage
-        .from("task-images")
+        .from('task-images')
         .remove([filePath]);
       if (error) throw error;
       return true;
     } catch (error) {
-      console.error("Delete file error", error.message);
+      console.error('Delete file error:', error.message);
+      throw error;
     }
   }
 }

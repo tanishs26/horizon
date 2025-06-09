@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { BeatLoader } from 'react-spinners';
 
 const AuthLayout = ({ children, authentication = true }) => {
     const authStatus = useSelector((state) => state.auth.userStatus)
-    const [loader, setLoader] = useEffect(true)
+    const [loader, setLoader] = useState(true)
     const navigate = useNavigate()
     useEffect(() => {
         if (authentication && !authStatus) {

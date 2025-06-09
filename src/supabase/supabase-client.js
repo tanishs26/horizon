@@ -69,6 +69,9 @@ export class Supabase {
       console.error("Log out error:", error.message);
     }
   }
+  get auth() {
+    return this.supabaseClient.auth;
+  }
 }
 
 const supabase = new Supabase();
