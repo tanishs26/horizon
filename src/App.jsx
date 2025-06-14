@@ -42,7 +42,7 @@ function App() {
   return (
     < div className="min-h-screen flex flex-col justify-between items-center w-full bg-gradient-to-r from-stone-500 to-stone-700">
       <Header />
-      {loading ? (<h1 className="text-2xl mx-auto text-center">Please wait<BeatLoader color="white" /></h1>) :
+      {loading ? (<h1 className="text-white text-2xl mx-auto text-center">Please wait<BeatLoader color="white" /></h1>) :
         (
 
           <main>

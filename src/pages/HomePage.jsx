@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import supabaseStorage from '../supabase/supabase-data';
-import { Container, PostCard } from '../components/import.js';
-import ImageCarousel from './ImageCarousel.jsx';
-
+import React, { useEffect, useState } from "react";
+import supabaseStorage from "../supabase/supabase-data";
+import { Container, PostCard } from "../components/import.js";
+import ImageCarousel from "./ImageCarousel.jsx";
+import { BeatLoader } from "react-spinners";
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -11,11 +11,11 @@ const HomePage = () => {
     supabaseStorage
       .getAllPosts()
       .then((data) => {
-        console.log('Fetched posts:', data);
+        console.log("Fetched posts:", data);
         setPosts(data || []);
       })
       .catch((error) => {
-        console.error('Error fetching posts:', error.message);
+        console.error("Error fetching posts:", error.message);
         setPosts([]);
       })
       .finally(() => setIsLoading(false));
@@ -29,7 +29,10 @@ const HomePage = () => {
     return (
       <Container className="min-h-screen flex items-center justify-center">
         <div className="text-white text-xl sm:text-2xl font-semibold animate-pulse">
-          Loading...
+          <h1 className="text-white text-2xl mx-auto text-center">
+            Please wait
+            <BeatLoader color="white" />
+          </h1>
         </div>
       </Container>
     );
