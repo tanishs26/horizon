@@ -19,7 +19,7 @@ const Footer = () => {
         {/* Links */}
         <div className="flex gap-6 text-xl">
           <a
-            href="https://github.com/tanishs26"
+            href="https://github.com/tanishs26/horizon"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-white transition"
@@ -47,7 +47,7 @@ const Footer = () => {
 
       {/* Copyright */}
       <div className="text-center text-sm text-gray-500 mt-6">
-        &copy; {new Date().getFullYear()} Horizon. All rights reserved.
+        &copy; {new Date().getFullYear()} Horizon. For educational purposes.
       </div>
     </motion.footer>
   );

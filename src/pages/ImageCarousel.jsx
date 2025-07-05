@@ -73,7 +73,7 @@ const ImageCarousel = ({ images }) => {
             <img
               src={image}
               alt={`Slide ${index + 1}`}
-              className="w-full h-full object-cover pointer-events-none"
+              className="w-full h-full object-fit pointer-events-none"
             />
           </div>
         ))}

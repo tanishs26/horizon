@@ -14,9 +14,9 @@ const Logout = () => {
         })
     }
     return (
-        <div className='flex text-[20px] text-red-500 items-center px-6 py-2 rounded-md active:scale-90  cursor-pointer hover:bg-red-500  hover:text-white  duration-300' onClick={handleLogout}>
-            <FaSignOutAlt />
-            <h1> </h1>
+        <div className='flex text-[20px] text-red-500 items-center px-4 py-2 rounded-md active:scale-90  cursor-pointer hover:bg-red-500  hover:text-white  duration-300' onClick={handleLogout}>
+            <FaSignOutAlt className='mr-1'/>
+            <h1> </h1>         
             <button type='button' className='cursor-pointer'> Log out
             </button>
         </div>
