@@ -8,6 +8,7 @@ export class Supabase {
       import.meta.env.VITE_SUPABASE_KEY
     );
   }
+  
   async signUp({email, password, name}) {
     try {
       const { data, error } = await this.supabaseClient.auth.signUp({
